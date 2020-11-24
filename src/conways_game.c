@@ -49,8 +49,6 @@ void show (int **matrix, int N) {
 			else putchar('X');
 			putchar(' ');
         	}
-			
-
 		putchar('\n');
 	}
 }

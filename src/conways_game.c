@@ -48,6 +48,7 @@ void show (int **matrix, int N) {
         		if (matrix[i][j] == 0) putchar(' ');
 			else putchar('X');
 			putchar(' ');
+			putchar(' ');
         	}
 		putchar('\n');
 	}

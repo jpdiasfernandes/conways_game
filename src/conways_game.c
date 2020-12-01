@@ -46,7 +46,7 @@ void show (int **matrix, int N) {
 	for (i = 0; i < N; i++) {
         	for (j = 0; j < N; j++) {
         		if (matrix[i][j] == 0) putchar(' ');
-			else putchar('X');
+			else putchar('O');
 			putchar(' ');
 			putchar(' ');
         	}

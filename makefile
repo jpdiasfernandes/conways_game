@@ -1,10 +1,21 @@
-conways_game : main.o conways_game.o
-	gcc -o conways_game main.o conways_game.o
+CC      := gcc
+CCFLAGS :=
+LDFLAGS :=
 
-main.o : src/main.c src/conways_game.c src/conways_game.h
-	gcc -c src/main.c
+TARGETS := conways
+MAINS   := main.o
+OBJ     := conways_game.o main.o
+DEPS    := src/conways_game.h
 
-conways_game.o: src/conways_game.c src/conways_game.h
-	gcc -c src/conways_game.c
+.PHONY: clean all
 
+all: $(TARGETS)
 
+clean:
+	rm -f $(TARGETS) $(OBJ)
+
+$(OBJ): %.o : src/%.c $(DEPS)
+	$(CC) -c -o $@ $< $(CCFLAGS)
+
+$(TARGETS): $(OBJ)
+	$(CC) -o $@ $(LIBS) $^ $(CCFLAGS) $(LDFLAGS)

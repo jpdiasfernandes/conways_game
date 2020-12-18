@@ -26,11 +26,16 @@ void play (int **matrix, int N) {
 	int i,j, state, neighbours;
 	int **copy = make_matrix(N);
 
-	for (i = 0; i < N; i++)
+	for (i = 0; i < N/2; i++)
+		for (j = 0; j < N; j++)
+			copy[i][j] = matrix[i][j];
+	
+	for (i = N/2; i < N; i++)
 		for (j = 0; j < N; j++)
 			copy[i][j] = matrix[i][j];
 
-	for (i = 0; i < N; i++) {
+
+	for (i = 0; i < N/2; i++) {
 		for (j = 0; j < N; j++) {
 			state = copy[i][j];		
 			neighbours = neighbours_alive(copy, i, j, N);
@@ -38,6 +43,22 @@ void play (int **matrix, int N) {
 			else if (state && neighbours != 2 && neighbours != 3) matrix[i][j] = 0;
 		}
 	}
+	for (i = N/2; i < N; i++) {
+		for (j = 0; j < N; j++) {
+			state = copy[i][j];		
+			neighbours = neighbours_alive(copy, i, j, N);
+			if (!state && neighbours == 3) matrix[i][j] = 1;  
+			else if (state && neighbours != 2 && neighbours != 3) matrix[i][j] = 0;
+		}
+	}
+
+
+
+
+
+
+
+
 }
 
 void show (int **matrix, int N) {
@@ -47,8 +68,7 @@ void show (int **matrix, int N) {
         	for (j = 0; j < N; j++) {
         		if (matrix[i][j] == 0) putchar(' ');
 			else putchar('O');
-			putchar(' ');
-			putchar(' ');
+			//putchar(' ');
         	}
 		putchar('\n');
 	}

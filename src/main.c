@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
-#define N 128
+#define N 512
+
 int main () {
 	int **matrix = make_matrix(N);
 	int i,j;
@@ -13,7 +14,7 @@ int main () {
 	
 	for (i = 0; i < N; i++) {
 		for (j = 0; j < N; j++){
-			matrix[i][j] = (rand() % 14 == 1)? 1 : 0;
+			matrix[i][j] = (rand() % 11 == 1)? 1 : 0;
 			printf("%d ", matrix[i][j]);
 		}
 		putchar('\n');

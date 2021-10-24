@@ -14,25 +14,41 @@ int neighbours_alive (int **matrix, int l, int c, int N) {
 	int i,j, r = 0;
 	for (i = l-1; i <= l + 1; i++)
 		for (j = c-1; j <= c+1; j++)
-			if ((i!=l || j != c) && inbounds(i,j,N) && matrix[i][j]) r++; 
+			if ((i!=l || j != c) && matrix[round_robin(i,N)][round_robin(j,N)]) r++; 
 	return r;
 }
 
-int inbounds (int l, int c, int N) {
-	return (l >= 0 && l < N && c >= 0 && c < N); 
+int round_robin(int n, int N) {
+	int r = 0;
+	if (n < 0) (n += N);
+	r = n%N;
+	return r;
 }
 
 void play (int **matrix, int N) {
 	int i,j, state, neighbours;
 	int **copy = make_matrix(N);
-
+	
 	for (i = 0; i < N/2; i++)
-		for (j = 0; j < N; j++)
+		for (j = 0; j < N/2; j++)
 			copy[i][j] = matrix[i][j];
 	
-	for (i = N/2; i < N; i++)
-		for (j = 0; j < N; j++)
+	for (i = 0; i < N/2; i++)
+		for (j = N/2; j < N; j++)
 			copy[i][j] = matrix[i][j];
+
+
+
+	for (i = N/2; i < N; i++)
+		for (j = 0; j < N/2; j++)
+			copy[i][j] = matrix[i][j];
+
+	for (i = N/2; i < N; i++)
+		for (j = N/2; j < N; j++)
+			copy[i][j] = matrix[i][j];
+
+
+
 
 
 	for (i = 0; i < N/2; i++) {
@@ -68,7 +84,7 @@ void show (int **matrix, int N) {
         	for (j = 0; j < N; j++) {
         		if (matrix[i][j] == 0) putchar(' ');
 			else putchar('O');
-			//putchar(' ');
+			putchar(' ');
         	}
 		putchar('\n');
 	}
